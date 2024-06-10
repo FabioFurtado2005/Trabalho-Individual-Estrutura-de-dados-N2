@@ -19,17 +19,17 @@ Estrada *getEstrada(const char *nomeArquivo) {
 
     Estrada *estrada = (Estrada *)malloc(sizeof(Estrada));
     if (estrada == NULL) {
-        printf("Erro ao alocar memória para a estrada.\n");
+        printf("Erro ao alocar memÃ³ria para a estrada.\n");
         fclose(file);
         return NULL;
     }
 
     fscanf(file, "%d", &estrada->T); // faz a leitura da primeira linha: comprimento da estrada
-    fscanf(file, "%d", &estrada->N); // faz a leitura da segunda linha: número de cidades
+    fscanf(file, "%d", &estrada->N); // faz a leitura da segunda linha: nÃºmero de cidades
 
     estrada->C = (Cidade *)malloc(estrada->N * sizeof(Cidade));
     if (estrada->C == NULL) {
-        printf("Erro ao alocar memória para as cidades.\n");
+        printf("Erro ao alocar memÃ³ria para as cidades.\n");
         free(estrada);
         fclose(file);
         return NULL;
@@ -59,7 +59,7 @@ double calcularMenorVizinhanca(const char *nomeArquivo) {
 
     double menorVizi = INFINITY;
 
-    // Calcular vizinhança entre cidades consecutivas
+    // Calcular vizinhanÃ§a entre cidades consecutivas
     double Mediavizinhanca = calcularvizinho(estrada->C[0].Posicao, estrada->C[1].Posicao);
     double Primeiravizinhanca = estrada->C[0].Posicao + Mediavizinhanca;
 
@@ -76,7 +76,7 @@ double calcularMenorVizinhanca(const char *nomeArquivo) {
             Mediavizinhanca = calcularvizinho(estrada->C[i].Posicao, estrada->C[i + 1].Posicao);
         }
 
-        // Calcular vizinhança da última cidade com o final da estrada
+        // Calcular vizinhanÃ§a da Ãºltima cidade com o final da estrada
         Atualvizinhanca = (estrada->T - estrada->C[estrada->N - 1].Posicao) + Mediavizinhanca;
         if (Atualvizinhanca < menorVizi) {
             menorVizi = Atualvizinhanca;
@@ -144,20 +144,4 @@ char *cidadeMenorVizinhanca(const char *nomeArquivo) {
     return cidadeMenorViz;
 }
 
-int main() {
-    const char *nomeArquivo = "arquivo.txt";
-
-    double menorVizinhanca = calcularMenorVizinhanca(nomeArquivo);
-    char *cidadeMenorViz = cidadeMenorVizinhanca(nomeArquivo);
-
-    if (menorVizinhanca == -1 || cidadeMenorViz == NULL) {
-        printf("Erro ao processar o arquivo.\n");
-    } else {
-        printf("Menor vizinhança: %.2f\n", menorVizinhanca);
-        printf("Cidade com a menor vizinhança: %s\n", cidadeMenorViz);
-        free(cidadeMenorViz);
-    }
-
-    return 0;
-}
 
